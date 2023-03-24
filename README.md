@@ -9,6 +9,16 @@ You can install the package via composer:
 ```bash
 composer require jumbaeric/laragpt
 ```
+publish config file
+```bash
+php artisan vendor:publish
+```
+and select laragpt package to publish.
+
+Add openai api key to your env variable 
+```bash
+OPENAI_API_KEY=
+```
 
 ## Usage
 

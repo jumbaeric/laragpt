@@ -16,9 +16,11 @@
             "role": "Developer"
         }
     ],
+    "minimum-stability": "dev",
+    "prefer-stable": true,
     "require": {
         "php": "^7.4|^8.0",
-        "illuminate/support": "^8.0"
+        "illuminate/support": "^9.21|^10.0"
     },
     "require-dev": {
         "orchestra/testbench": "^6.0",
