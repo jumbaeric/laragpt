@@ -1,0 +1,55 @@
+{
+    "name": "jumbaeric/laragpt",
+    "description": "Laravel implementation of chatgpt, includes models listing and retrieving, completions prediction, chat completion from conversation, edits, images creation, image edit, image variations, audio translation and transcription.",
+    "keywords": [
+        "jumbaeric",
+        "laragpt",
+        "laravel-chatgpt"
+    ],
+    "homepage": "https://github.com/jumbaeric/laragpt",
+    "license": "MIT",
+    "type": "library",
+    "authors": [
+        {
+            "name": "Eric jumba",
+            "email": "jumbaeric@gmail.com",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": "^7.4|^8.0",
+        "illuminate/support": "^8.0"
+    },
+    "require-dev": {
+        "orchestra/testbench": "^6.0",
+        "phpunit/phpunit": "^9.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Jumbaeric\\Laragpt\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Jumbaeric\\Laragpt\\Tests\\": "tests"
+        }
+    },
+    "scripts": {
+        "test": "vendor/bin/phpunit",
+        "test-coverage": "vendor/bin/phpunit --coverage-html coverage"
+
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Jumbaeric\\Laragpt\\LaragptServiceProvider"
+            ],
+            "aliases": {
+                "Laragpt": "Jumbaeric\\Laragpt\\LaragptFacade"
+            }
+        }
+    }
+}
