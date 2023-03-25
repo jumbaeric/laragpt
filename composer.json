@@ -4,7 +4,8 @@
     "keywords": [
         "jumbaeric",
         "laragpt",
-        "laravel-chatgpt"
+        "laravel-chatgpt",
+        "openai"
     ],
     "homepage": "https://github.com/jumbaeric/laragpt",
     "license": "MIT",
@@ -23,7 +24,6 @@
         "illuminate/support": "^9.21|^10.0"
     },
     "require-dev": {
-        "orchestra/testbench": "^6.0",
         "phpunit/phpunit": "^9.0"
     },
     "autoload": {
