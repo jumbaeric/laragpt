@@ -45,7 +45,7 @@ class Laragpt
     }
 
     // @param string $type : create, edit, variations
-    public static function images($prompt, $size = '1024x1024', $type = 'create', $n = 1, $mask = null)
+    public static function images($prompt, $size = '1024x1024', $type = 'create', $n = 1, $mask)
     {
         $images = new Images();
         if ($type == 'create'){
