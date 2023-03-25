@@ -1,6 +1,6 @@
 {
     "name": "jumbaeric/laragpt",
-    "description": "Laravel implementation of chatgpt, includes models listing and retrieving, completions prediction, chat completion from conversation, edits, images creation, image edit, image variations, audio translation and transcription.",
+    "description": "Laravel chatgpt package, includes models listing and retrieving, completions prediction, chat completion from conversation, edits, images creation, image edit, image variations, audio translation and transcription.",
     "keywords": [
         "laravel",
         "laragpt",
