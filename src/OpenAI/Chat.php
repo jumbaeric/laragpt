@@ -23,14 +23,13 @@ final class Chat extends OpenAI
 
         $endpoint = $this->end_point . $this->service;
 
-        $data = array(
+        $data =
             [
                 'model' => $this->model,
                 'messages' => $this->messages,
                 'max_tokens' => $this->max_tokens,
                 'temperature' => $this->temperature,
-            ]
-        );
+            ];
 
         $response = $this->postRequest($endpoint, $data);
 

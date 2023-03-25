@@ -11,7 +11,7 @@ class OpenAI
     public string $end_point;
     public string $service;
 
-    public ?string $model;
+    public string $model;
     public string $prompt;
     public int $max_tokens = 7;
     public float $temperature = 0;
@@ -28,8 +28,8 @@ class OpenAI
 
     public function __construct()
     {
-        $this->OPENAI_API_KEY = config('openai.OPENAI_API_KEY');
-        $this->end_point = config('openai.END_POINT') . '/' . config('openai.API_VERSION') . '/';
+        $this->OPENAI_API_KEY = config('laragpt.OPENAI_API_KEY');
+        $this->end_point = config('laragpt.END_POINT') . '/' . config('laragpt.API_VERSION') . '/';
     }
 
     public function getApiKey()

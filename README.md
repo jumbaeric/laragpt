@@ -1,4 +1,3 @@
-# Very short description of the package
 Laravel implementation of chatgpt, includes models listing and retrieving, completions prediction, chat completion from conversation, edits, images creation, image edit, image variations, audio translation and transcription.
 
 

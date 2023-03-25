@@ -20,7 +20,7 @@ final class Edits extends OpenAI
     }
 
     // reference: https://platform.openai.com/docs/api-reference/edits/create
-    public function create(string $input = '', $instruction)
+    public function create(string $instruction)
     {
         if (!isset($instruction) && !isset($this->instruction)) {
             return array([
@@ -30,15 +30,14 @@ final class Edits extends OpenAI
 
         $endpoint = $this->end_point . $this->service;
 
-        $data = array(
+        $data =
             [
                 'model' => $this->model,
                 'input' => $this->input,
                 'instruction' => $instruction ??= $this->instruction,
                 'temperature' => $this->temperature,
                 'top_p' => $this->top_p,
-            ]
-        );
+            ];
 
         $response = $this->postRequest($endpoint, $data);
 

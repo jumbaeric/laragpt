@@ -8,7 +8,7 @@ final class Images extends OpenAI
     public string $size = "1024x1024";
     public string $response_format;
     public string $image;
-    public string $mask;
+    public ?string $mask;
 
     public function setSize($size)
     {
@@ -31,7 +31,7 @@ final class Images extends OpenAI
     }
 
     // reference: https://platform.openai.com/docs/api-reference/images/create
-    public function create(string $prompt, string $size)
+    public function create(string $prompt, $size)
     {
         if (!isset($prompt) && !isset($this->prompt)) {
             return array([
@@ -41,15 +41,14 @@ final class Images extends OpenAI
 
         $endpoint = $this->end_point . $this->service;
 
-        $data = array(
+        $data =
             [
                 'prompt' => $promt ??= $this->prompt,
                 'n' => $this->n,
                 'size' => $size ??= $this->size,
                 'response_format' => $this->response_format,
                 'user' => $this->user,
-            ]
-        );
+            ];
 
         $response = $this->postRequest($endpoint, $data);
 
@@ -57,7 +56,7 @@ final class Images extends OpenAI
     }
 
     // reference: https://platform.openai.com/docs/api-reference/images/create-edit
-    public function createEdit(string $image, string $prompt, string $mask)
+    public function createEdit(string $image, string $prompt, $mask)
     {
         $this->service = 'images/edits';
 
@@ -119,6 +118,5 @@ final class Images extends OpenAI
         $response = $this->postRequest($endpoint, $data);
 
         return $response;
-
     }
 }

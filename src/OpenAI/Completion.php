@@ -5,7 +5,7 @@ namespace Jumbaeric\Laragpt\OpenAI;
 final class Completion extends OpenAI
 {
     public string $model = 'text-davinci-003';
-    public $service = '/completions';
+    public string $service = 'completions';
     public $stop = "\n";
 
     // reference: https://platform.openai.com/docs/api-reference/completions/create
@@ -20,18 +20,16 @@ final class Completion extends OpenAI
 
         $endpoint = $this->end_point . $this->service;
 
-        $data = array(
+        $data =
             [
                 'model' => $this->model,
                 'prompt' => $prompt ??= $this->prompt,
                 'max_tokens' => $this->max_tokens,
                 'temperature' => $this->temperature,
-            ]
-        );
+            ];
 
         $response = $this->postRequest($endpoint, $data);
 
         return $response;
-
     }
 }
