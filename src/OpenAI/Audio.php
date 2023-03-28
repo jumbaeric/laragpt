@@ -6,89 +6,27 @@ final class Audio extends OpenAI
 {
     public string $service = 'audio/transcriptions';
     public $model = "whisper-1";
-    public string $audioFilePath;
-    public string $language;
-    public string $response_format;
 
-    public function setAudioFilePath($audioFilePath)
-    {
-        $this->audioFilePath = $audioFilePath;
+    public function __construct($args){
+        parent::__construct($args);
+        $this->end_point = $this->end_point_url . $this->service;
     }
 
-    public function setLanguage($language)
+    public function createTranscript()
     {
-        $this->language = $language;
+
+        $data = $this->getArgs();
+
+        return $this->postRequest($data);
     }
 
-    public function setResponseFormat($response_format)
-    {
-        $this->response_format = $response_format;
-    }
-
-    // reference: https://platform.openai.com/docs/api-reference/audio/create
-    public function createTranscript(string $audioFilePath, string $prompt)
-    {
-        if (!isset($audioFilePath) && !isset($this->audioFilePath)) {
-            return array([
-                'error' => 'audioFilePath is required,'
-            ]);
-        }
-
-        if (!isset($model) && !isset($this->model)) {
-            return array([
-                'error' => 'Model is required,'
-            ]);
-        }
-
-        $endpoint = $this->end_point . $this->service;
-
-        $data =
-            [
-                'model' => $model ??= $this->model,
-                'audioFilePath' => $audioFilePath ??= $this->audioFilePath,
-                'prompt' => $prompt ??= $this->prompt,
-                'model' => $this->model,
-                'temperature' => $this->temperature,
-                'language' => $this->language,
-            ];
-
-        $response = $this->postRequest($endpoint, $data);
-
-        return $response;
-    }
-
-    // reference: https://platform.openai.com/docs/api-reference/audio/create
-    public function createTranslation(string $audioFilePath, string $prompt)
+    public function createTranslation()
     {
         $this->service = 'audio/translations';
+        $this->end_point = $this->end_point_url . $this->service;
 
-        if (!isset($audioFilePath) && !isset($this->audioFilePath)) {
-            return array([
-                'error' => 'audioFilePath is required,'
-            ]);
-        }
+        $data = $this->getArgs();
 
-        if (!isset($model) && !isset($this->model)) {
-            return array([
-                'error' => 'Model is required,'
-            ]);
-        }
-
-        $endpoint = $this->end_point . $this->service;
-
-        $data = array(
-            [
-                'model' => $model ??= $this->model,
-                'audioFilePath' => $audioFilePath ??= $this->audioFilePath,
-                'prompt' => $prompt ??= $this->prompt,
-                'model' => $this->model,
-                'temperature' => $this->temperature,
-                'response_format' => $this->response_format,
-            ]
-        );
-
-        $response = $this->postRequest($endpoint, $data);
-
-        return $response;
+        return $this->postRequest($data);
     }
 }

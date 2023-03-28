@@ -28,42 +28,92 @@ use Jumbaeric\Laragpt\Laragpt;
 
 // Complete
 // Given a prompt, the model will return one or more predicted completions, and can also return the probabilities of alternative tokens at each position.
-$prompt = "Say this is a test"; //
-Laragpt::complete($prompt);
+    $args = [
+        'prompt' => 'Brainstorm some ideas combining VR and fitness', //required
+        'model' => 'text-davinci-003',  //  required
+    ];
+
+    Laragpt::complete($args);
 
 // Chat
 // Given a chat conversation, the model will return a chat completion response.
 
-$role = "user";
-$message = "How does chatgpt work";
-Laragpt::chat($role, $message);
+Laragpt::chat([
+        'model' => 'gpt-3.5-turbo', // required
+        'messages' => [             // required
+            [
+                "role" => "system",
+                "content" => "You are a helpful assistant."
+            ],
+            [
+                "role" => "user",
+                "content" => "Who won the world series in 2020?"
+            ],
+            [
+                "role" => "assistant",
+                "content" => "The Los Angeles Dodgers won the World Series in 2020."
+            ],
+            [
+                "role" => "user",
+                "content" => "Where was it played?"
+            ],
+        ],
+        'temperature' => 1.0,   //  optional
+        'max_tokens' => 4000,   //  optional
+        'frequency_penalty' => 0,   //  optional
+        'presence_penalty' => 0,    //  optional
+    ]);
 
 // Audio
 // trascribe: Transcribes audio into the input language.
 // translate: Translates audio into into English.
 
-$audioFilePath = "audio.mp3";
 $type = "transcript"; // string: Required : value can be transcript or translation
-$prompt = ""; // An optional text to guide the model's style or continue a previous audio segment. The prompt should match the audio language.
-Laragpt::audio($audioFilePath, $prompt, $type);
+Laragpt::audio([
+            'model' => 'whisper-1',     //  required
+            'file' => "audio.mp3",      //  required
+            'prompt' => "",             //  optional
+            'response_format' => '',    //  optional
+            'temperature' => '',        //  optional
+        ], $type);
 
 // Edits
 // Given a prompt and an instruction, the model will return an edited version of the prompt.
-$instructions = "Fix the spelling mistakes"; // string : Required : The instruction that tells the model how to edit the prompt.
-$input = "What day of the wek is it?"; // string : Optional : Defaults to '' The input text to use as a starting point for the edit.
-Laragpt::edits($instructions, $input);
+Laragpt::edits([
+        'model' => 'text-davinci-edit-001', // required
+        'input' => 'What day of the wek is it?',
+        'instruction' => 'Fix the spelling mistakes',   //  required
+        'n' => 1,   //  optional
+        'temperature' => 1,   //  optional
+        'top_p' => 1,    //  optional
+    ]);
 
 // Images
-$prompt = "A cute baby sea otter"; // string : Required : A text description of the desired image(s). The maximum length is 1000 characters.
-$size = "1024x1024"; // string : Optional : Defaults to 1024x1024 : The size of the generated images. Must be one of 256x256, 512x512, or 1024x1024.
-$type = "create"; // string : Required : value can be create, edit, variations
-$n = 1; // int : Optional: The number of images to generate. Must be between 1 and 10.
-$mask = ""; // string : Optional : An additional image whose fully transparent areas (e.g. where alpha is zero) indicate where image should be edited. Must be a valid PNG file, less than 4MB, and have the same dimensions as image.
-Laragpt::images($prompt, $size, $type, $n, $mask);
+    $createArr = [ // $type = create
+        'prompt' => 'A cute baby sea otter',
+        'size' => '1024x1024',   //  required
+        'n' => 1,   //  optional
+    ] ;
+
+    $ceateEditArr = [ // $type = createEdit
+        'prompt' => 'A cute baby sea otter wearing a beret',    // required
+        'image' => '@otter.png',                                //required
+        'mask' => '@mask.png',
+        'n' => 1,
+        'size' => '1024x1024',
+    ];
+
+    $createVariationArr = [ // $type = variations
+        'image' => '@otter.png',
+        'n' => 2,
+        'size' => '1024x1024',
+    ];
+    
+    Laragpt::images($createArr, $type = 'create');
 
 // Models
-$model = null; // String : Optional : Lists all models when value is null, model set returns the model details
-Laragpt::models($model);
+$model_id = null; // String : Optional : Lists all models when value is null, model set returns the model details
+Laragpt::models($model_id);
 
 
 ```

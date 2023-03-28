@@ -14,15 +14,15 @@ final class Models extends OpenAI
 
         $response = $this->getRequest($endpoint);
 
-        return $response;
+        return collect($response['data']);
 
     }
 
     // reference: https://platform.openai.com/docs/api-reference/models/retrieve
-    public function retrieve($model)
+    public function retrieve($model_id='davinci')
     {
 
-        $endpoint = $this->end_point . $this->service. '/' . $model;
+        $endpoint = $this->end_point . $this->service. '/' . $model_id;
 
         $response = $this->getRequest($endpoint);
 

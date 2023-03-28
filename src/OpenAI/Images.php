@@ -10,6 +10,12 @@ final class Images extends OpenAI
     public string $image;
     public ?string $mask;
 
+    public function __construct(array $args){
+        parent::__construct($args);
+        $this->end_point = $this->end_point_url . $this->service;
+
+    }
+
     public function setSize($size)
     {
         $this->size = $size;
@@ -31,91 +37,35 @@ final class Images extends OpenAI
     }
 
     // reference: https://platform.openai.com/docs/api-reference/images/create
-    public function create(string $prompt, $size)
+    public function create()
     {
-        if (!isset($prompt) && !isset($this->prompt)) {
-            return array([
-                'error' => 'Prompt is required,'
-            ]);
-        }
 
-        $endpoint = $this->end_point . $this->service;
+        $data = $this->getArgs();
 
-        $data =
-            [
-                'prompt' => $promt ??= $this->prompt,
-                'n' => $this->n,
-                'size' => $size ??= $this->size,
-                'response_format' => $this->response_format,
-                'user' => $this->user,
-            ];
-
-        $response = $this->postRequest($endpoint, $data);
+        $response = $this->postRequest($data);
 
         return $response;
     }
 
     // reference: https://platform.openai.com/docs/api-reference/images/create-edit
-    public function createEdit(string $image, string $prompt, $mask)
+    public function createEdit()
     {
         $this->service = 'images/edits';
 
-        if (!isset($image) || !isset($this->image)) {
-            return array([
-                'error' => 'Image is required,'
-            ]);
-        }
+        $data = $this->getArgs();
 
-        if (!isset($prompt) || !isset($this->prompt)) {
-            return array([
-                'error' => 'Prompt is required,'
-            ]);
-        }
+        return $this->postRequest($data);
 
-        $endpoint = $this->end_point . $this->service;
-
-        $data = array(
-            [
-                'prompt' => $prompt ??= $this->prompt,
-                'image' => $image ??= $this->image,
-                'mask' => $mask ??= $this->mask,
-                'n' => $this->n,
-                'size' => $this->size,
-                'response_format' => $this->response_format,
-                'user' => $this->user,
-            ]
-        );
-
-        $response = $this->postRequest($endpoint, $data);
-
-        return $response;
     }
 
     // reference: https://platform.openai.com/docs/api-reference/images/create-variation
-    public function createVariations(string $image, string $size, int $n)
+    public function createVariations()
     {
         $this->service = 'images/variations';
 
-        if (!isset($image) || !isset($this->image)) {
-            return array([
-                'error' => 'Image is required,'
-            ]);
-        }
+        $data = $this->getArgs();
 
-        $endpoint = $this->end_point . $this->service;
-
-        $data = array(
-            [
-                'prompt' => $this->prompt,
-                'image' => $image ??= $this->image,
-                'n' => $n ??= $this->n,
-                'size' => $size ??= $this->size,
-                'response_format' => $this->response_format,
-                'user' => $this->user,
-            ]
-        );
-
-        $response = $this->postRequest($endpoint, $data);
+        $response = $this->postRequest($data);
 
         return $response;
     }

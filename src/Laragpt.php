@@ -2,6 +2,7 @@
 
 namespace Jumbaeric\Laragpt;
 
+use Error;
 use Jumbaeric\Laragpt\OpenAI\Audio;
 use Jumbaeric\Laragpt\OpenAI\Images;
 use Jumbaeric\Laragpt\OpenAI\Chat;
@@ -11,52 +12,52 @@ use Jumbaeric\Laragpt\OpenAI\Models;
 
 class Laragpt
 {
-    public static function complete($prompt)
+    public static function complete($prompt, array $args = null)
     {
-        $completion = new Completion();
-        return $completion->complete($prompt);
+        $completion = new Completion($prompt, $args);
+        return $completion->complete();
     }
 
     // @param string $type : transcript, translation
-    public static function audio($audioFilePath, $prompt, $type = 'transcript')
+    public static function audio(array $args, $type = 'transcript')
     {
-        $audio = new Audio();
+        $audio = new Audio($args);
         if ($type == 'transcript') {
-            return $audio->createTranscript($audioFilePath, $prompt);
+            return $audio->createTranscript();
         }
 
-        return $audio->createTranslation($audioFilePath, $prompt);
+        if ($type == 'translation') {
+            return $audio->createTranslation();
+        }
     }
 
-    public static function chat($role, $message)
+    public static function chat(array $args)
     {
-        $chat = new Chat();
-        $chat->setMessage($role, $message);
+        $chat = new Chat($args);
         return $chat->create();
     }
 
-    public static function edits($instructions, $input = null)
+    public static function edits(array $args)
     {
-        $edits = new Edits();
-        if (null !== $input) {
-            $edits->input = $input;
-        }
-        return $edits->create($instructions);
+        $edits = new Edits($args);
+        return $edits->create();
     }
 
     // @param string $type : create, edit, variations
-    public static function images($prompt, $size = '1024x1024', $type = 'create', $n = 1, $mask)
+    public static function images(array $args, string $type)
     {
-        $images = new Images();
-        if ($type == 'create'){
-            return $images->create($prompt, $size);
+        $images = new Images($args);
+        if ($type == 'create') {
+            return $images->create();
         }
 
-        if ($type == 'edit'){
-            return $images->createEdit($prompt, $size, $mask);
+        if ($type == 'edit') {
+            return $images->createEdit();
         }
 
-        return $images->createVariations($prompt, $size, $n);
+        if ($type == 'variations') {
+            return $images->createVariations();
+        }
     }
 
     public static function models($model = null)

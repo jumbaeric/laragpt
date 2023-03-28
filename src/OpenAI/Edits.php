@@ -9,6 +9,12 @@ final class Edits extends OpenAI
     public string $input;
     public string $instruction;
 
+    public function __construct(array $args){
+        parent::__construct($args);
+        $this->end_point = $this->end_point_url . $this->service;
+
+    }
+
     public function setInput($input)
     {
         $this->input = $input;
@@ -20,26 +26,12 @@ final class Edits extends OpenAI
     }
 
     // reference: https://platform.openai.com/docs/api-reference/edits/create
-    public function create(string $instruction)
+    public function create()
     {
-        if (!isset($instruction) && !isset($this->instruction)) {
-            return array([
-                'error' => 'Instruction is required,'
-            ]);
-        }
 
-        $endpoint = $this->end_point . $this->service;
+        $data = $this->getArgs();
 
-        $data =
-            [
-                'model' => $this->model,
-                'input' => $this->input,
-                'instruction' => $instruction ??= $this->instruction,
-                'temperature' => $this->temperature,
-                'top_p' => $this->top_p,
-            ];
-
-        $response = $this->postRequest($endpoint, $data);
+        $response = $this->postRequest($data);
 
         return $response;
     }

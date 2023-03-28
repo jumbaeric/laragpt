@@ -9,6 +9,13 @@ final class Chat extends OpenAI
     public $stop = "\n";
     public array $messages;
 
+    public function __construct($args){
+        parent::__construct($args);
+
+        $this->end_point = $this->end_point_url . $this->service;
+
+    }
+
     public function setMessage(string $role, string $message): void
     {
         $this->messages = [
@@ -17,22 +24,11 @@ final class Chat extends OpenAI
         ];
     }
 
-    // reference: https://platform.openai.com/docs/api-reference/chat/create
     public function create()
     {
+        $data = $this->getArgs();
 
-        $endpoint = $this->end_point . $this->service;
+        return $this->postRequest($data);
 
-        $data =
-            [
-                'model' => $this->model,
-                'messages' => $this->messages,
-                'max_tokens' => $this->max_tokens,
-                'temperature' => $this->temperature,
-            ];
-
-        $response = $this->postRequest($endpoint, $data);
-
-        return $response;
     }
 }
