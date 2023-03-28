@@ -106,7 +106,8 @@ class OpenAI
         $this->response_format = $response_format;
     }
 
-    public function getArgs(){
+    public function getArgs()
+    {
         $data = get_object_vars($this);
 
         $data = array_filter($data, fn ($var) => ($var !== NULL && $var !== FALSE && $var !== ""));
@@ -126,7 +127,7 @@ class OpenAI
         return (array) $response->throw();
     }
 
-    public function postRequest( array $data)
+    public function postRequest(array $data)
     {
         $response = Http::withToken($this->getApiKey())->post($this->end_point, $data);
 
@@ -134,6 +135,16 @@ class OpenAI
             return $response->json();
         }
 
+        return (array) $response->throw();
+    }
+
+    public function deleteRequest(string $endpoint)
+    {
+        $response = Http::withToken($this->getApiKey())->delete($endpoint);
+
+        if ($response->ok()) {
+            return $response->json();
+        }
         return (array) $response->throw();
     }
 }
