@@ -1,4 +1,5 @@
-Laravel implementation of chatgpt, includes models listing and retrieving, completions prediction, chat completion from conversation, edits, images creation, image edit, image variations, audio translation and transcription.
+Get the power of OpenAI's APIs with laragpt.
+Laragpt is the perfect package for developers wanting to access the powerful Artificial Intelligence capabilities of OpenAI through an easy to use Laravel interface. With laragpt you can quickly get up and running with OpenAI’s powerful deep learning algorithms, natural language processing, and machine learning capabilities, allowing for the development of innovative and complex applications. By taking advantage of the OpenAI API and Laravel’s simple interfaces, laragpt makes it easy to integrate AI into your projects. Give your apps the intelligence of OpenAI with laragpt.
 
 
 ## Installation
