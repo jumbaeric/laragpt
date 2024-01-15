@@ -5,7 +5,7 @@ namespace Jumbaeric\Laragpt\OpenAI;
 final class Chat extends OpenAI
 {
     public string $service = 'chat/completions';
-    public $model = 'gpt-3.5-turbo';
+    public string $model = 'gpt-3.5-turbo';
     public $stop = "\n";
     public array $messages;
 
